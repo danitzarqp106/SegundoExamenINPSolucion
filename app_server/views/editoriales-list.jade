@@ -1,0 +1,25 @@
+extends layout
+
+include _includes/sharedHTMLfunctions
+
+block content
+  #banner.page-header
+    .row
+      .col-lg-6
+        h1= pageHeader.title
+         small &nbsp;#{pageHeader.strapline}
+  .row
+    .col-xs-12.col-sm-8
+      .error= message
+      .row.list-group
+        each editorial in editoriales
+          .col-xs-12.list-group-item
+            h4 
+              a(href="/editorial/#{editorial._id}")= editorial.name
+              small &nbsp;
+                +outputRating(editorial.rating)
+           
+            p.address= editorial.tipo
+            
+    .col-xs-12.col-sm-4 
+      p.lead= sidebar

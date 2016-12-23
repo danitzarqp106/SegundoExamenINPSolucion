@@ -1,0 +1,47 @@
+extends layout
+
+include _includes/sharedHTMLfunctions
+
+block content
+  .row.page-header: .col-lg-12
+      h1= pageHeader.title
+  .row
+    .col-xs-12.col-md-9
+      .row
+        .col-xs-12.col-sm-6
+          p.rating
+            +outputRating(editorial.rating)
+         
+          .panel.panel-primary
+            .panel-heading
+              h2.panel-title Tipo de Editorial
+            .panel-body
+               p= editorial.tipo
+          .panel.panel-primary
+            .panel-heading
+              h2.panel-title Contenido
+            .panel-body
+               p= editorial.contenido
+            
+             
+      .row
+        .col-xs-12
+          .panel.panel-primary.review-panel
+            .panel-heading
+              a.btn.btn-default.pull-right(href="/editorial/#{editorial._id}/review/new") Add review
+              h2.panel-title Comentarios
+            .panel-body.review-container
+              each review in editorial.reviews
+                .row
+                  .review
+                    .well.well-sm.review-header
+                      span.rating
+                        +outputRating(review.rating)
+                      span.reviewAuthor #{review.author}
+                      small.reviewTimestamp
+                        +formatDate(review.createdOn)
+                    .col-xs-12
+                      p !{(review.reviewText).replace(/\n/g, '<br/>')}
+    .col-xs-12.col-md-3
+      p.lead #{editorial.name} #{sidebar.context}
+      p= sidebar.callToAction
